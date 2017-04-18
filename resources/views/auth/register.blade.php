@@ -1,5 +1,7 @@
 @extends('layouts.auth')
-
+@section('title')
+    Register
+@stop
 @section('content')
 <div class="container">
     <div class="row">
@@ -63,7 +65,7 @@
                         <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }} row">
                             <label for="captcha" class="col-md-4 control-label">Captcha</label>
                             <div class="col-md-6">
-                                <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
+                                <div class="g-recaptcha" data-sitekey="{{ env('RE_CAP_SITE') }}"></div>
                                 @if ($errors->has('g-recaptcha-response'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
@@ -89,4 +91,7 @@
         </div>
     </div>
 </div>
+    <footer>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+    </footer>
 @endsection

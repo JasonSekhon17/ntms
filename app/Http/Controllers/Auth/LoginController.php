@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\ActivationService;
 
 class LoginController extends Controller
 {
@@ -18,6 +19,7 @@ class LoginController extends Controller
     |
     */
 
+    protected $activationService;
     use AuthenticatesUsers;
 
     /**
@@ -32,8 +34,18 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ActivationService $activationService)
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->activationService = $activationService;
+    }
+
+    public function activateUser($token)
+    {
+        if ($user = $this->activationService->activateUser($token)) {
+            auth()->login($user);
+            return redirect($this->redirectPath());
+        }
+        abort(404);
     }
 }

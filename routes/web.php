@@ -20,8 +20,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Auth::routes();
-Route::get('user/activation/{token}', 'Auth\RegisterController@activateUser')
-    ->name('user.activate');
+Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
+
 
 Auth::routes();
 
